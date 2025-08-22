@@ -23,6 +23,11 @@ android {
         externalNativeBuild {
             cmake {
                 arguments("-DANDROID_STL=c++_shared")
+                arguments("-DCPUINFO_BUILD_TOOLS=OFF")
+                arguments("-DCPUINFO_BUILD_UNIT_TESTS=OFF")
+                arguments("-DCPUINFO_BUILD_MOCK_TESTS=OFF")
+                arguments("-DCPUINFO_BUILD_BENCHMARKS=OFF")
+                arguments("-DCPUINFO_BUILD_PKG_CONFIG=OFF")
             }
         }
     }

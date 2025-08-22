@@ -1,4 +1,4 @@
-# Athena
+# System Info
 
 [![Crowdin](https://badges.crowdin.net/athena-android/localized.svg)](https://crowdin.com/project/athena-android)
 

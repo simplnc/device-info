@@ -25,5 +25,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Athena"
+rootProject.name = "device-info"
 include(":app")

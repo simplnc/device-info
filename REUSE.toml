@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 version = 1
-SPDX-PackageName = "Athena"
+SPDX-PackageName = "System Info"
 SPDX-PackageSupplier = "Sebastiano Barezzi"
 SPDX-PackageDownloadLocation = "https://github.com/SebaUbuntu/Athena"
 

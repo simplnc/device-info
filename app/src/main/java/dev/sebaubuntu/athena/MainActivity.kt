@@ -9,6 +9,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -74,17 +75,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        try {
+            super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+            setContentView(R.layout.activity_main)
 
-        // Enable edge-to-edge
-        enableEdgeToEdge()
+            // Enable edge-to-edge
+            enableEdgeToEdge()
 
-        setSupportActionBar(toolbar)
+            // Initialize views after setContentView with a slight delay to ensure proper initialization
+            contentView.post {
+                initializeViews()
+            }
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Fatal error in onCreate: ${e.message}", e)
+            // Re-throw to let the system handle the crash properly
+            throw e
+        }
+    }
 
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+    private fun initializeViews() {
+        try {
+            // Hide toolbar to remove title
+            toolbar.visibility = View.GONE
+
+            val appBarConfiguration = AppBarConfiguration(navController.graph)
+            toolbar.setupWithNavController(navController, appBarConfiguration)
+        } catch (e: Exception) {
+            // Log error but don't crash
+            Log.e("MainActivity", "Error initializing views: ${e.message}", e)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -199,7 +219,16 @@ class MainActivity : AppCompatActivity() {
         private const val JSON_MIME_TYPE = "application/json"
 
         init {
-            System.loadLibrary("athena")
+            try {
+                System.loadLibrary("athena")
+                Log.d("MainActivity", "Native library loaded successfully")
+            } catch (e: UnsatisfiedLinkError) {
+                Log.e("MainActivity", "Failed to load native library: ${e.message}", e)
+                // This is a critical error, but we'll continue without the native library
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Unexpected error loading native library: ${e.message}", e)
+                // This is a critical error, but we'll continue without the native library
+            }
         }
     }
 }

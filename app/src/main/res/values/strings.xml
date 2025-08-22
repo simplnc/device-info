@@ -5,7 +5,7 @@
 -->
 <resources>
     <!-- App/activity -->
-    <string name="app_name" translatable="false">Athena</string>
+    <string name="app_name" translatable="false">System Info</string>
 
     <!-- Permissions -->
     <string name="permissions_not_granted">Permissions not granted</string>
